@@ -39,6 +39,6 @@
 	- enable kdb, for kernel debugging
 	- Rumpdisk support, disabling old IDE and AHCI gnumach's drivers
 
-- **`upload-kernel.sh`**: upload the new gnumach.gz file to the VM, using rsync + ssh  
+- **`upload-kernel.sh`**: upload the new gnumach.gz file to the VM, using rsync + ssh.  **Receives as parameter the username of the VM machine**
 
-- **`debug-gnumach.sh`**: Start a remote debugging environment, open gdb session + qemu VM in debug mode. **Receives as parameter the username of the VM machine**
+- **`debug-gnumach.sh`**: Start a remote debugging environment, open gdb session + qemu VM in debug mode.
