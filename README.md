@@ -32,6 +32,13 @@
 
 - **`compile_scratch.sh`**: Compile gnumach from scratch, removing any other old compilation and restarting configure and make steps. **Receives as parameter the maximum number of cpus allowed by the kernel**
 
+	The gnumach compiled includes the next configuration
+	
+	- APIC support
+	- SMP support (disabled if the number of cpus is < 2)
+	- enable kdb, for kernel debugging
+	- Rumpdisk support, disabling old IDE and AHCI gnumach's drivers
+
 - **`upload-kernel.sh`**: upload the new gnumach.gz file to the VM, using rsync + ssh  
 
 - **`debug-gnumach.sh`**: Start a remote debugging environment, open gdb session + qemu VM in debug mode. **Receives as parameter the username of the VM machine**
