@@ -4,7 +4,7 @@ VM_OPTIONS=""
 mkdir $HOME/hurd_qemu
 cd $HOME/Downloads
 
-if [[ $OPTIONS == "--from-installer" ]];
+if [[ $OPTIONS == "--from-installer" || $OPTIONS == "-i" ]];
 then
 	DVD_DOWNLOAD="https://cdimage.debian.org/cdimage/ports/latest/hurd-i386/current/debian-sid-hurd-i386-DVD-1.iso"
 	wget $DVD_DOWNLOAD
