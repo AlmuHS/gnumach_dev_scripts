@@ -9,12 +9,12 @@ CDROM="$HOME/Descargas/debian-sid-hurd-i386-DVD-1.iso"
 # If I ever need to add a cdrom
     echo "running ssh"
 
-BOOT='c'
+BOOT='order=c'
 
 if [[ $1 == "-i" || $1 == "--install" ]];
 then
 	echo "installer mode"
-	BOOT='d'
+	BOOT='order=d'
 fi
 
 OPTIONS="-device ahci,id=ahci1 												\
@@ -25,10 +25,8 @@ OPTIONS="-device ahci,id=ahci1 												\
                      -boot $BOOT                                      \
                      -net user,hostfwd=tcp:127.0.0.1:2222-:22     \
                      -net nic,model=e1000                      \
-                     -no-reboot                                   \
-                     -no-shutdown                                 \
                      -vga std                                     \
-                     -display gtk"				
+                     -display gtk"
 
 if [[ $# -eq 0 ||  $1 == "-i" || $1 == "--install" ]];
 then
@@ -37,7 +35,7 @@ then
 elif [[ $1 == '-D' || $1 == '--debug' ]];
 then
 	echo "debug mode"
-	OPTIONS="-S $OPTIONS"
+	OPTIONS="-S $OPTIONS -no-reboot -no-shutdown"
 fi
 
 qemu-system-i386 -s -m $MEMORY $OPTIONS 
