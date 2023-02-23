@@ -1,6 +1,11 @@
 #!/bin/bash
 
 NUM_CPUS=$1
+if [[ $# -eq 0 ]];
+then
+	NUM_CPUS=1
+fi
+
 
 cd $HOME/gnumach
 rm -rf build
