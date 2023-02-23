@@ -28,7 +28,7 @@
 
 ### Developer environment
 
-- **`prepare_environment.sh`**: Download the latest gnumach sources from upstream and make a first compilation.
+- **`prepare_environment.sh`**: Download the latest gnumach sources from upstream and make a first compilation.**Receives as parameter the maximum number of cpus allowed by the kernel**, needed for compilation
 
 - **`compile_scratch.sh`**: Compile gnumach from scratch, removing any other old compilation and restarting configure and make steps. **Receives as parameter the maximum number of cpus allowed by the kernel**
 
