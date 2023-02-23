@@ -39,6 +39,3 @@ then
 fi
 
 qemu-system-i386 -s -m $MEMORY $OPTIONS 
-                     # -machine kernel_irqchip=off                  \
-                     #					\
-                     #-drive id=root,if=none,format=raw,media=disk,file=/dev/sdb \
