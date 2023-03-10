@@ -11,12 +11,14 @@ CDROM="$HOME/Descargas/debian-sid-hurd-i386-DVD-1.iso"
 
 BOOT='order=c'
 
+#if installer mode is selected, the VM boots from CD/DVD drive
 if [[ $1 == "-i" || $1 == "--install" ]];
 then
 	echo "installer mode"
 	BOOT='order=d'
 fi
 
+#List of arguments for Qemu
 OPTIONS="-device ahci,id=ahci1 												\
                      -drive id=root,if=none,media=disk,format=raw,file=$FILE \
 										 -device ide-hd,drive=root,bus=ahci1.1				 \
@@ -26,16 +28,19 @@ OPTIONS="-device ahci,id=ahci1 												\
                      -net user,hostfwd=tcp:127.0.0.1:2222-:22     \
                      -net nic,model=e1000                      \
                      -vga std                                     \
-                     -display gtk"
+                     -display gtk"				
 
-if [[ $# -eq 0 ||  $1 == "-i" || $1 == "--install" ]];
+#if no arguments, the system run from harddisk instead install
+#in both cases, KVM is enabled
+if [[ $# -eq 0 ||  $1 = "-i" || $1 = "--install" ]];
 then
 	echo "kvm enabled"
 	OPTIONS="$OPTIONS -enable-kvm"
-elif [[ $1 == '-D' || $1 == '--debug' ]];
+#The debug mode doesn't use KVM to ease debugging. Also starts the VM in pause, to allow to prepare gdb before booting
+elif [[ $1 = '-D' || $1 = '--debug' ]];
 then
 	echo "debug mode"
 	OPTIONS="-S $OPTIONS -no-reboot -no-shutdown"
 fi
 
-qemu-system-i386 -s -m $MEMORY $OPTIONS 
+qemu-system-i386 -s -M q35 -m $MEMORY $OPTIONS 
