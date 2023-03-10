@@ -22,7 +22,8 @@ fi
 OPTIONS="-device ahci,id=ahci1 												\
                      -drive id=root,if=none,media=disk,format=raw,file=$FILE \
 										 -device ide-hd,drive=root,bus=ahci1.1				 \
-										 -drive id=cd,file=$CDROM,media=cdrom					\
+										 -drive id=cd,if=none,file=$CDROM,media=cdrom					\
+										 -device ide-cd,drive=cd,bus=ahci1.2	\
                      -smp 8                                       \
                      -boot $BOOT                                      \
                      -net user,hostfwd=tcp:127.0.0.1:2222-:22     \
