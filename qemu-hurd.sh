@@ -25,8 +25,8 @@ OPTIONS="-device ahci,id=ahci1 												\
 										 -drive id=cd,file=$CDROM,media=cdrom					\
                      -smp 8                                       \
                      -boot $BOOT                                      \
-                     -net user,hostfwd=tcp:127.0.0.1:2222-:22     \
-                     -net nic,model=e1000                      \
+                     -netdev user,id=net0,net=192.168.76.0/24,dhcpstart=192.168.76.5,hostfwd=tcp::2222-:22 \
+										 -device e1000,netdev=net0
                      -vga std                                     \
                      -display gtk"				
 
