@@ -49,13 +49,12 @@ OPTIONS="-device ahci,id=ahci1 												\
 
 #if no arguments, the system run from harddisk instead install
 #in both cases, KVM is enabled
-if [[ $# -eq 0 ||  $1 = "-i" || $1 = "--install" ]];
+if [[ $1 != '-D' && $1 != '--debug' ]];
 then
 	echo "kvm enabled"
 	OPTIONS="$OPTIONS -enable-kvm"
 #The debug mode doesn't use KVM to ease debugging. Also starts the VM in pause, to allow to prepare gdb before booting
-elif [[ $1 = '-D' || $1 = '--debug' ]];
-then
+else
 	echo "debug mode"
 	OPTIONS="-S $OPTIONS -no-reboot -no-shutdown"
 fi
