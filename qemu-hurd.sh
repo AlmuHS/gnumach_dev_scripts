@@ -26,8 +26,8 @@ OPTIONS="-device ahci,id=ahci1 												\
 										 -device ide-cd,drive=cd\
                      -smp 8                                       \
                      -boot $BOOT                                      \
-                     -net user,hostfwd=tcp:127.0.0.1:2222-:22     \
-                     -net nic,model=e1000                      \
+                     -netdev user,id=net1,hostfwd=tcp:127.0.0.1:2222-:22     \
+                     -device e1000,netdev=net1
                      -vga std                                     \
                      -display gtk"				
 
