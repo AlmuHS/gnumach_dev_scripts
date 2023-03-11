@@ -11,12 +11,28 @@ CDROM="$HOME/Descargas/debian-sid-hurd-i386-DVD-1.iso"
 
 BOOT='order=c'
 
+#Number of cpus to use in the VM
+NCPUS=1
+
+#regex to check if variable is a number
+re='^[0-9]+$'
+
+#if first parameter is a number, set this number as the amount of cpus to use
+if [[ $1 =~  $re ]];
+then
+	NCPUS=$1
 #if installer mode is selected, the VM boots from CD/DVD drive
-if [[ $1 == "-i" || $1 == "--install" ]];
+elif [[ $1 == "-i" || $1 == "--install" ]];
 then
 	echo "installer mode"
 	BOOT='order=d'
+#in debug mode, if receives a second parameter, take this as amount of cpus to use
+elif [[ ( $1 = '-D' || $1 = '--debug' ) && ($# -eq 2 && $2 =~ $re) ]];
+then
+		NCPUS=$2
 fi
+
+echo "Using $NCPUS cpus"
 
 #List of arguments for Qemu
 OPTIONS="-device ahci,id=ahci1 												\
@@ -24,7 +40,7 @@ OPTIONS="-device ahci,id=ahci1 												\
 										 -device ide-hd,drive=root,bus=ahci1.1				 \
 										 -drive id=cd,if=none,file=$CDROM,media=cdrom					\
 										 -device ide-cd,drive=cd\
-                     -smp 8                                       \
+                     -smp $NCPUS                                       \
                      -boot $BOOT                                      \
                      -netdev user,id=net1,net=192.168.76.0/24,dhcpstart=192.168.76.5,hostfwd=tcp:127.0.0.1:2222-:22     \
                      -device e1000,netdev=net1
