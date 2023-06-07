@@ -22,6 +22,9 @@ if [[ $1 =~  $re ]];
 then
 	NCPUS=$1
 #if installer mode is selected, the VM boots from CD/DVD drive
+elif [[ $2 =~  $re ]];
+then
+	NCPUS=$2
 elif [[ $1 == "-i" || $1 == "--install" ]];
 then
 	echo "installer mode"
