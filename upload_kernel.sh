@@ -1,3 +1,5 @@
+#/bin/bash
+
 if [[ $1 == "-r" ]];
 then
 	USER=$2
