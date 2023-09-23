@@ -2,7 +2,7 @@ OPTIONS="$1"
 VM_OPTIONS=""
 
 mkdir $HOME/hurd_qemu
-cd $HOME/Downloads
+cd $HOME/Descargas
 
 if [[ $OPTIONS == "--from-installer" || $OPTIONS == "-i" ]];
 then
@@ -22,4 +22,5 @@ else
 	fi
 fi
 
+cd -
 ./qemu-hurd.sh $VM_OPTIONS
