@@ -34,6 +34,7 @@ OPTIONS="-s -device ahci,id=ahci1 												\
                      -device e1000,netdev=net1
                      -display gtk"				
 
+
 #if no arguments, the system run from harddisk instead install
 #in both cases, KVM is enabled
 if [[ $1 != '-D' && $1 != '--debug' ]];
