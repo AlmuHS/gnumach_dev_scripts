@@ -30,11 +30,10 @@ OPTIONS="-s -device ahci,id=ahci1 												\
 										 -drive id=cd,if=none,file=$CDROM,media=cdrom					\
 										 -device ide-cd,drive=cd\
                      -boot $BOOT                                      \
-
                      -netdev user,id=net1,net=192.168.76.0/24,dhcpstart=192.168.76.5,hostfwd=tcp:127.0.0.1:2222-:22     \
                      -device e1000,netdev=net1
+                     -display gtk"				
 
-                      -display gtk"				
 
 #if no arguments, the system run from harddisk instead install
 #in both cases, KVM is enabled
