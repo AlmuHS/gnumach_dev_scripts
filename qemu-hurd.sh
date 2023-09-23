@@ -29,7 +29,7 @@ OPTIONS="-s -device ahci,id=ahci1 												\
 										 -device ide-hd,drive=root,bus=ahci1.1				 \
 										 -drive id=cd,if=none,file=$CDROM,media=cdrom					\
 										 -device ide-cd,drive=cd\
-                     -boot $BOOT                                      \
+                     -boot $BOOT -accel kvm                                     \
                      -netdev user,id=net1,net=192.168.76.0/24,dhcpstart=192.168.76.5,hostfwd=tcp:127.0.0.1:2222-:22     \
                      -device e1000,netdev=net1
                      -display gtk"				
@@ -37,18 +37,7 @@ OPTIONS="-s -device ahci,id=ahci1 												\
 
 #if no arguments, the system run from harddisk instead install
 #in both cases, KVM is enabled
-if [[ $1 != '-D' && $1 != '--debug' ]];
-then
-	echo "kvm enabled"
-	OPTIONS="$OPTIONS -accel kvm"
-	
-	#if first parameter is a number, set this number as the amount of cpus to use
-	if [[ $1 =~  $re ]];
-	then
-		NCPUS=$1
-	fi
-#The debug mode doesn't use KVM to ease debugging. Also starts the VM in pause, to allow to prepare gdb before booting
-else
+if [[ $1 == '-D' || $1 == '--debug' ]]; then
 	echo "debug mode"
 	OPTIONS="-S $OPTIONS -no-reboot -no-shutdown"
 	
@@ -56,8 +45,11 @@ else
 	if [[ $2 =~  $re ]] && [[ $2 -gt 1 ]];
 	then
 		NCPUS=$2
-		OPTIONS="$OPTIONS -accel kvm" #we can't emulate SMP by software
 	fi
+elif [[ $1 =~  $re ]];
+then	
+	#if first parameter is a number, set this number as the amount of cpus to use
+	NCPUS=$1
 fi
 
 echo "Using $NCPUS cpus"
