@@ -37,9 +37,13 @@ OPTIONS="-s -device ahci,id=ahci1 												\
 
 #if no arguments, the system run from harddisk instead install
 #in both cases, KVM is enabled
+
+#if debug mode is selected, we set some flags in qemu to ease the debugging
 if [[ $1 == '-D' || $1 == '--debug' ]]; then
 	echo "debug mode"
-	OPTIONS="-S $OPTIONS -no-reboot -no-shutdown"
+	
+	#The shutdown and reboot are disable, to allow see kernel panic messages. And the machine starts paused, to allow connect remote debugger 
+	OPTIONS="-S $OPTIONS -no-reboot -no-shutdown" 
 	
 	#The number of cpus also can be set as second parameter
 	if [[ $2 =~  $re ]] && [[ $2 -gt 1 ]];
