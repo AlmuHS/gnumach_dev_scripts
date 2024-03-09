@@ -5,7 +5,8 @@
 #qemu-img create -f qcow2 hurd.img 20G
 MEMORY=2G
 FILE="$HOME/hurd_qemu/hurd.img"
-CDROM="$HOME/Descargas/debian-sid-hurd-i386-DVD-1.iso"
+#CDROM="$HOME/Descargas/debian-hurd-2023-i386-NETINST-1.iso"
+CDROM="$HOME/Descargas/debian-sid-hurd-i386-NETINST-1.iso"
 # If I ever need to add a cdrom
     echo "running ssh"
 
@@ -28,7 +29,7 @@ OPTIONS="-s -device ahci,id=ahci1 												\
                      -drive id=root,if=none,media=disk,format=raw,file=$FILE \
 										 -device ide-hd,drive=root,bus=ahci1.1				 \
 										 -drive id=cd,if=none,file=$CDROM,media=cdrom					\
-										 -device ide-cd,drive=cd\
+										 -device ide-cd,drive=cd,bus=ahci1.2\
                      -boot $BOOT -accel kvm                                     \
                      -netdev user,id=net1,net=192.168.76.0/24,dhcpstart=192.168.76.5,hostfwd=tcp:127.0.0.1:2222-:22     \
                      -device e1000,netdev=net1
