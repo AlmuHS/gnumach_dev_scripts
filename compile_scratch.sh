@@ -2,6 +2,8 @@
 
 #sudo apt install mig-i686-gnu
 
+SRC_PATH="$HOME/GNUMach_SMP"
+
 NUM_CPUS=$1
 if [[ $# -eq 0 ]];
 then
@@ -9,8 +11,9 @@ then
 fi
 
 
-cd $HOME/gnumach
+cd $SRC_PATH
 rm -rf build
+autoreconf --install
 mkdir build
 cd build
 echo "compiling for $NUM_CPUS cpus"
