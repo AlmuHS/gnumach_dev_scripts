@@ -58,4 +58,4 @@ then
 fi
 
 echo "Using $NCPUS cpus"
-qemu-system-i386 -M q35 -m $MEMORY $OPTIONS -smp $NCPUS
+qemu-system-i386 -m $MEMORY $OPTIONS -smp $NCPUS
